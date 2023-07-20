@@ -25,3 +25,5 @@ stages:
         dockerfile: $(dockerfilePath)
         tags: |
           $(tag)
+
+      
