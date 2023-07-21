@@ -1,0 +1,42 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+variables:
+   dockerRegistryConnection: vprofile-acr
+   Subscription: vprofile-sc
+   azureContainerRegistry: 'myacrrepo1212'
+   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfiles'
+
+pool:
+  name: Default
+
+stages:
+  -  stage: Build
+        
+     jobs:
+       -  job: 
+          steps:                       
+           - task: Docker@0
+             inputs:
+               azureSubscription: $(Subscription)
+               containerregistrytype: Container Registry             
+               dockerRegistryConnection: $(dockerRegistryConnection)
+               action: Build an image
+               dockerFile: '$(dockerfilePath)/app/Dockerfile'
+               imageName: Vprofile-Application
+               includeLatestTag: true
+           - task: Docker@0
+             inputs:
+                azureSubscription: $(Subscription)
+                containerregistrytype: Container Registry            
+                dockerRegistryConnection: $(dockerRegistryConnection)           
+                azureContainerRegistry: $(azureContainerRegistry)
+                action: Push an image
+                imageName:  Vprofile-Application
+                includeLatestTag: true
+
+
