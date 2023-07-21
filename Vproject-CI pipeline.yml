@@ -15,8 +15,7 @@ pool:
   name: Default
 
 stages:
-  -  stage: Application Build
-        
+  -  stage: Build and Push Application        
      jobs:
        -  job: 
           steps:                       
@@ -38,7 +37,7 @@ stages:
                 action: Push an image
                 imageName:  Vprofile-Application
                 includeLatestTag: true
-  - stage: Web Application
+  - stage: 
     jobs:
       -  job: 
          steps:
@@ -60,7 +59,7 @@ stages:
                 action: Push an image
                 imageName:  Vprofile-web
                 includeLatestTag: true
-  - stage: DB Application
+  - stage: DB
     jobs:
       -  job:
          steps:
