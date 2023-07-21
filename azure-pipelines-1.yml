@@ -14,18 +14,15 @@ stages:
         
      jobs:
        -  job: 
-          steps:
-            - task:
-              inputs:
-                  containerRegistry: 'acr'
-                  command: login            
-            -  task: Docker@2
-               displayName: Build and push an db image to container registry
-               inputs:
-                 command: build
-                 containerRegistry: 'acr'
-                 repository: 'myacrrepo1212'
-                 Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-                 tags: '4.0'
-      
-                  
+          steps:                       
+           - task: Docker@2
+             inputs:
+               containerRegistry: 'acr'
+               command: 'login'
+           - task: Docker@2
+             inputs:
+               containerRegistry: 'acr'
+               repository: 'myacrrepo1212'
+               command: 'buildAndPush'
+               Dockerfile: '**/Dockerfile'
+            
