@@ -15,14 +15,12 @@ stages:
      jobs:
        -  job: 
           steps:                       
-           - task: Docker@2
+           - task: Docker@0
              inputs:
-               containerRegistry: 'acr'
-               command: 'login'
-           - task: Docker@2
-             inputs:
-               containerRegistry: 'acr'
-               repository: 'myacrrepo1212'
-               command: 'buildAndPush'
-               Dockerfile: '**/Dockerfile'
-            
+               azureSubscription: freetail
+               containerregistrytype: Azure Container Registry               
+               azureContainerRegistry: 'myacrrepo1212'
+               action: Build an image
+               dockerFile: '**/Dockerfile'
+               imageName: Sudhakar
+               includeLatestTag: true
