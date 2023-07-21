@@ -24,3 +24,12 @@ stages:
                dockerFile: '**/Dockerfile'
                imageName: Sudhakar
                includeLatestTag: true
+           - task: Docker@0
+             inputs:
+                azureSubscription: freetail
+                containerregistrytype: Azure Container Registry               
+                azureContainerRegistry: 'myacrrepo1212'
+                action: Push an image
+                imageName: Sudhakar
+                includeLatestTag: true
+                
