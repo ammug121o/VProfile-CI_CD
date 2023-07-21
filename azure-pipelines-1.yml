@@ -29,6 +29,7 @@ stages:
                 azureSubscription: freetail
                 containerregistrytype: Azure Container Registry               
                 azureContainerRegistry: 'myacrrepo1212'
+                dockerRegistryConnection: 'acr'
                 action: Push an image
                 imageName: Sudhakar
                 includeLatestTag: true
