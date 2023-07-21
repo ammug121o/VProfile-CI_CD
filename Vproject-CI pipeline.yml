@@ -37,10 +37,7 @@ stages:
                 action: Push an image
                 imageName:  Vprofile-Application
                 includeLatestTag: true
-  - stage: 
-    jobs:
-      -  job: 
-         steps:
+ 
            - task: Docker@0
              inputs:
                azureSubscription: $(Subscription)
@@ -59,10 +56,7 @@ stages:
                 action: Push an image
                 imageName:  Vprofile-web
                 includeLatestTag: true
-  - stage: DB
-    jobs:
-      -  job:
-         steps:
+
            - task: Docker@0
              inputs:
                azureSubscription: $(Subscription)
