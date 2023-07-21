@@ -17,19 +17,19 @@ stages:
           steps:                       
            - task: Docker@0
              inputs:
-               azureSubscription: freetail
-               containerregistrytype: Azure Container Registry               
-               azureContainerRegistry: 'myacrrepo1212'
+               azureSubscription: vprofile-sc
+               containerregistrytype: Container Registry             
+               dockerRegistryConnection: vprofile-acr
                action: Build an image
                dockerFile: '**/Dockerfile'
                imageName: Sudhakar
                includeLatestTag: true
            - task: Docker@0
              inputs:
-                azureSubscription: freetail
-                containerregistrytype: Azure Container Registry               
+                azureSubscription: vprofile-sc
+                containerregistrytype: Container Registry             
+                dockerRegistryConnection: vprofile-acr              
                 azureContainerRegistry: 'myacrrepo1212'
-                dockerRegistryConnection: 'acr'
                 action: Push an image
                 imageName: Sudhakar
                 includeLatestTag: true
