@@ -38,5 +38,41 @@ stages:
                 action: Push an image
                 imageName:  Vprofile-Application
                 includeLatestTag: true
-
-
+    
+           - task: Docker@0
+             inputs:
+               azureSubscription: $(Subscription)
+               containerregistrytype: Container Registry             
+               dockerRegistryConnection: $(dockerRegistryConnection)
+               action: Build an image
+               dockerFile: '$(dockerfilePath)/web/Dockerfile'
+               imageName: Vprofile-web
+               includeLatestTag: true
+           - task: Docker@0
+             inputs:
+                azureSubscription: $(Subscription)
+                containerregistrytype: Container Registry            
+                dockerRegistryConnection: $(dockerRegistryConnection)           
+                azureContainerRegistry: $(azureContainerRegistry)
+                action: Push an image
+                imageName:  Vprofile-web
+                includeLatestTag: true
+          
+           - task: Docker@0
+             inputs:
+               azureSubscription: $(Subscription)
+               containerregistrytype: Container Registry             
+               dockerRegistryConnection: $(dockerRegistryConnection)
+               action: Build an image
+               dockerFile: '$(dockerfilePath)/db/Dockerfile'
+               imageName: Vprofile-db
+               includeLatestTag: true
+           - task: Docker@0
+             inputs:
+                azureSubscription: $(Subscription)
+                containerregistrytype: Container Registry            
+                dockerRegistryConnection: $(dockerRegistryConnection)           
+                azureContainerRegistry: $(azureContainerRegistry)
+                action: Push an image
+                imageName:  Vprofile-db
+                includeLatestTag: true
