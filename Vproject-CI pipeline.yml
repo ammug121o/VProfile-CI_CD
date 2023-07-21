@@ -76,3 +76,6 @@ stages:
                 action: Push an image
                 imageName:  Vprofile-db
                 includeLatestTag: true
+              
+        
+
