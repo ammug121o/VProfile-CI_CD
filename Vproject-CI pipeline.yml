@@ -37,6 +37,10 @@ stages:
                 action: Push an image
                 imageName:  Vprofile-Application
                 includeLatestTag: true
+  - stage: 
+    jobs:
+      -  job: 
+         steps:
  
            - task: Docker@0
              inputs:
@@ -56,6 +60,10 @@ stages:
                 action: Push an image
                 imageName:  Vprofile-web
                 includeLatestTag: true
+  - stage: 
+    jobs:
+      -  job: 
+         steps:
 
            - task: Docker@0
              inputs:
@@ -75,6 +83,18 @@ stages:
                 action: Push an image
                 imageName:  Vprofile-db
                 includeLatestTag: true
-              
+           - task: CopyFiles@2
+             inputs:
+                SourceFolder: $(System.DefaultWorkingDirectory)/kube-manifest
+                Contents: '**'
+                TargetFolder: '$(Build.ArtifactStagingDirectory)'
+           - task: PublishBuildArtifacts@1
+             inputs:
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)'              
+              ArtifactName: 'kube-manifest'
+              publishLocation: 'Container'
+
+               
+
         
 
