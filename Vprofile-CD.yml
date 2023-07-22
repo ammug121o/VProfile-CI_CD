@@ -12,8 +12,8 @@ pool:
 stages:
   -  stage: 
      jobs:
-     - deployment: VMDeploy
-       displayName: Web deploy
+     - deployment: Deploy
+       displayName: deploy stage
        environment:
          name: default
          resourceType: Kubernetes
