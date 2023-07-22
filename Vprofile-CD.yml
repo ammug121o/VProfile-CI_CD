@@ -10,27 +10,28 @@ pool:
   name: Default
 
 stages:
-- stage: Deploy
-  displayName: Deploy image
-  jobs:  
-  - job: Deploy
-    displayName: Deploy
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-    
-    - task: DownloadPipelineArtifact@2
-      inputs:
-        buildType: 'current'
-        artifactName: 'manifests'
-        itemPattern: '**/*.yaml'
-        targetPath: '$(System.ArtifactsDirectory)'
-    - task: KubernetesManifest@0
-      inputs:
-        action: 'deploy'
-        kubernetesServiceConnection: 'azure-kubernetes-connection'
-        namespace: 'default'
-        manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
-        containers: 'in28min/currency-exchange-devops:$(tag)'
+  -  stage: 
+     jobs:
+     - deployment: VMDeploy
+       displayName: Web deploy
+       environment:
+         name: default
+         resourceType: Kubernetes
+       strategy:
+        runOnce:
+         deploy:
+           steps:
+            - task: DownloadPipelineArtifact@2
+              inputs:
+                buildType: 'current'
+                artifactName: 'manifests'
+                itemPattern: '**/*.yaml'
+                targetPath: '$(System.ArtifactsDirectory)'
+            - task: KubernetesManifest@0
+              inputs:
+                 action: 'deploy'
+                 namespace: 'default'
+                 manifests: '$(System.ArtifactsDirectory)/kube-manifest/vproject/ * '
+                 containers: 'in28min/currency-exchange-devops:$(tag)'
        
               
