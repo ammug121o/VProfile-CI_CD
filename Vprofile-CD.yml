@@ -15,7 +15,7 @@ stages:
      - deployment: Deploy
        displayName: deploy stage
        environment:
-         name: default
+         name: Vprofile-AKS
          resourceType: Kubernetes
        strategy:
         runOnce:
