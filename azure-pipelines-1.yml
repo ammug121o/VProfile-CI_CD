@@ -13,11 +13,12 @@ variables:
   dockerRegistryServiceConnection: 'd3803897-604f-406b-9c5e-b5cfa317728c'
   imageRepository: 'ammugovprofilecicd'
   containerRegistry: 'akscontainer1234.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfiles/app/Dockerfile'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfiles'
   tag: '$(Build.BuildId)'
 
   # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+pool:
+  name: Deafult
 
 stages:
 - stage: Build
@@ -37,3 +38,22 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)/web/Dockerfile
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)/db/Dockerfile
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+
