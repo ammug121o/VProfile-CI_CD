@@ -53,7 +53,8 @@ stages:
         command: buildAndPush
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)/db/Dockerfile
+        buildContext: 'db_backup.sql'
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-
+-
