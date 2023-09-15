@@ -5,10 +5,6 @@
 trigger:
 - main
 
-
-pool:
-  name: Default
-
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: 'd3803897-604f-406b-9c5e-b5cfa317728c'
@@ -24,7 +20,7 @@ stages:
   - job: Build
     displayName: Build
     pool:
-      vmImage: $(vmImageName)
+      name: Default
     steps:
     - task: Docker@2
       displayName: Build and push an image to container registry
