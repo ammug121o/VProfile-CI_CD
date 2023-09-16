@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: ammugovprofilecicd 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ammugovprofilecicd
+  template:
+    metadata:
+      labels:
+        app: ammugovprofilecicd 
+    spec:
+      containers:
+        - name: ammugovprofilecicd 
+          image: akscontainer1234.azurecr.io/ammugovprofilecicd
+          ports:
+          - containerPort: 8080
