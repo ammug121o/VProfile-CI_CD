@@ -19,20 +19,27 @@ variables:
 
 
 stages:
-- stage: Build
-  displayName: Build and push stage
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      name : Default
-    steps:
-    - task: Docker@2
-      displayName: Build and push an image to container registry
-      inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: '$(dockerfilePath)/app/Dockerfile'
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
+  -  stage: Build
+     jobs:
+       -  job: 
+          steps:                       
+           - task: Docker@0
+             inputs:
+               azureSubscription: $(Subscription)
+               containerregistrytype: Container Registry             
+               dockerRegistryConnection: $(dockerRegistryServiceConnection)
+               action: Build an image
+               dockerFile: '$(dockerfilePath)/app/Dockerfile'
+               imageName: Vprofile-Application
+               includeLatestTag: true
+           - task: Docker@0
+             inputs:
+                azureSubscription: $(Subscription)
+                containerregistrytype: Container Registry            
+                dockerRegistryConnection: $(dockerRegistryConnection)           
+                azureContainerRegistry: $(azureContainerRegistry)
+                action: Push an image
+                imageName:  Vprofile-Application
+                includeLatestTag: true
+              
+              
