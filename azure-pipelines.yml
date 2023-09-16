@@ -1,22 +1,14 @@
-# Docker
-# Build and push an image to Azure Container Registry
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
-
 trigger:
 - main
 
-resources:
-- repo: self
-
 variables:
-  # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '6f74d2c1-f284-40d5-8c69-e9e7fa040e34'
-  imageRepository: 'ammugovprofilecicd'
-  containerRegistry: 'akscontainer1234.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfiles'
-  tag: '$(Build.BuildId)'
+   dockerRegistryConnection: :'6f74d2c1-f284-40d5-8c69-e9e7fa040e34'
+   Subscription: Free Trial(52d46f25-b0f2-46f2-b8b9-d3648b186f27)
+   azureContainerRegistry: 'myacrrepo1212'
+   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfiles'
 
-
+pool:
+  name: Default
 
 stages:
   -  stage: Build
@@ -27,7 +19,7 @@ stages:
              inputs:
                azureSubscription: $(Subscription)
                containerregistrytype: Container Registry             
-               dockerRegistryConnection: $(dockerRegistryServiceConnection)
+               dockerRegistryConnection: $(dockerRegistryConnection)
                action: Build an image
                dockerFile: '$(dockerfilePath)/app/Dockerfile'
                imageName: Vprofile-Application
@@ -41,4 +33,3 @@ stages:
                 action: Push an image
                 imageName:  Vprofile-Application
                 includeLatestTag: true
-              
