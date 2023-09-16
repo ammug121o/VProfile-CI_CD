@@ -13,7 +13,7 @@ variables:
   dockerRegistryServiceConnection: '6f74d2c1-f284-40d5-8c69-e9e7fa040e34'
   imageRepository: 'ammugovprofilecicd'
   containerRegistry: 'akscontainer1234.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfiles/'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfiles'
   tag: '$(Build.BuildId)'
 
 
@@ -32,7 +32,7 @@ stages:
       inputs:
         command: buildAndPush
         repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)/app/dockerfile
+        dockerfile: '$(dockerfilePath)/app/dockerfile'
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
