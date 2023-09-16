@@ -2,7 +2,7 @@ trigger:
 - main
 
 variables:
-   dockerRegistryConnection: :'6f74d2c1-f284-40d5-8c69-e9e7fa040e34'
+   dockerRegistryConnection: :'akscontainer1234'
    Subscription: Free Trial(52d46f25-b0f2-46f2-b8b9-d3648b186f27)
    azureContainerRegistry: 'myacrrepo1212'
    dockerfilePath: '$(Build.SourcesDirectory)/Dockerfiles'
